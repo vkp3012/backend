@@ -1,9 +1,6 @@
-
 const express = require("express")
 const app = express()
-const mongoose = require('mongoose')
-const db_link = require('./secrets')
-const emailValidator = require("email-validator")
+const userModel = require('./models/userModel')
 app.use(express.json());
 
 let user = [
@@ -120,50 +117,8 @@ async function postSignup(req, res) {
 
 app.listen(5000)
 
-mongoose.connect(db_link)
-    .then(function(db){
-        console.log("db connected");
-        // console.log(db);
-    })
-    .catch(function(err){
-        console.log(err);
-    })
-
-const userSchema = mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
-    },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-        validate: function(){
-            return emailValidator.validate(this.email)
-        },
-    },
-    password:{
-        type:String,
-        required:true,
-    },
-    confirmpassword:{
-        type:String,
-        required:true,
-        validate: function(){
-            return this.confirmpassword == this.password
-        }
-    },
-})
-
-userSchema.pre('save',function () {
-    console.log('before saving in db');
-})
-
-userSchema.post('save',function () {
-    console.log('after saving in db');
-})
-
-const userModel = mongoose.model("userModel",userSchema);
+//model
+// const userModel = mongoose.model("userModel",userSchema);
 
 // (async function createUser() {
 //     let user = {
