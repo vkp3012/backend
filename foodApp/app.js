@@ -148,6 +148,14 @@ const userSchema = mongoose.Schema({
     },
 })
 
+userSchema.pre('save',function () {
+    console.log('before saving in db');
+})
+
+userSchema.post('save',function () {
+    console.log('after saving in db');
+})
+
 const userModel = mongoose.model("userModel",userSchema);
 
 // (async function createUser() {
