@@ -22,7 +22,7 @@ const userModel = require('../models/userModel')
 
 userRouter
     .route("/")
-    .get(getUsers)
+    .get(protectRoute,getUsers)
     .post(postUser)
     .patch(updateUser)
     .delete(deleteUser);
@@ -39,9 +39,22 @@ userRouter
     .route("/:name")
     .get(getUserById);
 
+// let isLoggedIn = true;
+// let isLoggedIn = false;
+//is admin cookies can be used to identify b/w user and admin..
+function protectRoute(req,res,next){
+    if(req.cookies.isLoggedIn){
+        next();
+    }else{
+        return res.json({
+            message : 'opertion not allowed'
+        })
+    }
+}    
+
 async function getUsers(req,res){
     console.log(req.query);
-    let {name,age} = req.query;
+    // let {name,age} = req.query;
     //get all users from data base...
     let allUsers = await userModel.find();
     res.json({message: "users retrived" , allUsers});

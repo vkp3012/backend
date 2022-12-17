@@ -46,6 +46,7 @@ async function loginUser(req,res){
         if(user){
             //check id password matches
             if(password == user.password){
+                res.cookie('isLoggedIn',true)
                 res.json({
                     message : "user logged in"
                 })
