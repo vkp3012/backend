@@ -37,6 +37,7 @@ userRouter
   .delete(deleteUser);
 
   userRouter.route("/setCookies").get(setCookies);
+  userRouter.route("/getCookies").get(getCookies);
 userRouter.route("/:name").get(getUserById);
 
 authRouter.route("/signup").get(getSignup).post(postSignup);
@@ -119,14 +120,17 @@ async function postSignup(req, res) {
   
 function setCookies(req,res){
     // res.setHeader("Set-Cookie",'isLoggedIn = true');
-    res.cookie('isLoggedIn',false,{maxAge:1000});
+    res.cookie('isLoggedIn',false,{maxAge:1000,secure:true});
+    res.cookie('password',12345678,{secure:true});
     res.send("cookies has been set")
 }
 
-// function getCookies(){
-//     res.setHeader("Set-Cookie",'isLoggedIn = true');
-//     res.send("'cookies has been set")
-// }
+function getCookies(req,res){
+    // let cookies = req.cookies;
+    let cookies = req.cookies.password;
+    console.log(cookies);
+    res.send("cookies received");
+}
 
 app.listen(5000)
 
