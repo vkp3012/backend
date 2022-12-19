@@ -5,7 +5,7 @@ module.exports.getUser =  async function (req,res){
     // let {name,age} = req.query;
     //get all users from data base...
     try{
-        let id = req.params.id;
+        let id = req.id;
         let user = await userModel.findById(id);
         res.json({message: "users retrived" , user});
     }
