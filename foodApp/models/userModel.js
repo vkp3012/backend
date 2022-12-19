@@ -34,8 +34,17 @@ const userSchema = mongoose.Schema({
         required:true,
         validate: function(){
             return this.confirmpassword == this.password
-        }
+        },
     },
+    role:{
+        type : String,
+        enum : ['admin','user','restaurantowner','deliveryboy'],
+        default :'user'
+    },
+    profileImage :{
+        type : String,
+        default : 'img/users/default.jpg'
+    }
 })
 // learing hook.......................
 // userSchema.pre('save',function () {

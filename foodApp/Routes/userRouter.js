@@ -1,6 +1,7 @@
+const { append } = require("cheerio/lib/api/manipulation");
 const express = require("express");
 const userRouter = express.Router();
-const { getUsers,postUser,updateUser,deleteUser,getUserById,setCookies,getCookies} = require('../controller/userController');
+const { getUser,postUser,updateUser,deleteUser,getAllUser} = require('../controller/userController');
 const {protectRoute} = require('../helper');
 // let user = [
 //     {
@@ -20,24 +21,22 @@ const {protectRoute} = require('../helper');
 //     },
 // ];
 
+//user option
 userRouter
-    .route("/")
-    .get(protectRoute,getUsers)
-    .post(postUser)
+    .route('/:id')
     .patch(updateUser)
-    .delete(deleteUser);
+    .delete(deleteUser)
 
+//profile page
+app.use(protectRoute)
 userRouter
-    .route("/setCookies")
-    .get(setCookies);
+    .route('/userProfile')
+    .get(getUser)
 
-userRouter
-    .route("/getCookies")
-    .get(getCookies);
-
-userRouter
-    .route("/:name")
-    .get(getUserById);
+//admin specific function
+app.use(isAuthorised(['admin']));
+userRouter.route('')
+    .get(getAllUser)
 
 // let isLoggedIn = true;
 // let isLoggedIn = false;
