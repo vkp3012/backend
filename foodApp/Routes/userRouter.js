@@ -1,9 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
-const userModel = require('../models/userModel')
-var jwt = require('jsonwebtoken');
-const JWT_KEY = "adhjkha247gf8ur"
-
+const { getUsers,postUser,updateUser,deleteUser,getUserById,setCookies,getCookies} = require('../controller/userController');
+const {protectRoute} = require('../helper');
 // let user = [
 //     {
 //         id:1,
@@ -44,86 +42,6 @@ userRouter
 // let isLoggedIn = true;
 // let isLoggedIn = false;
 //is admin cookies can be used to identify b/w user and admin..
-function protectRoute(req,res,next){
-    if(req.cookies.login){
-        let token = req.cookies.login;
-        let isVerified = jwt.verify(token,JWT_KEY);
-        if (isVerified) next();
-        else {
-            req.json({
-                message : "user not verified"
-            })
-        }
-    }else{
-        return res.json({
-            message : 'opertion not allowed'
-        })
-    }
-}    
-
-async function getUsers(req,res){
-    console.log(req.query);
-    // let {name,age} = req.query;
-    //get all users from data base...
-    let allUsers = await userModel.find();
-    res.json({message: "users retrived" , allUsers});
-}
-    
-function postUser(req,res){
-    console.log(req.body.Name);
-    user.push(req.body);
-    res.json({
-        message: "Data received sucessfully",
-        user: req.body,
-    })
-}
-
-async function updateUser(req,res){
-    console.log(req.body);
-    let dataToBeUpdated = req.body;
-    // for(key in dataToBeUpdated){
-    //     user[key] = dataToBeUpdated[key];
-    // }
-    let doc = await userModel.findOneAndUpdate({email:"abc@gmail.com"},dataToBeUpdated)
-    res.json({
-        message: "Data updated Succesfully"
-    });
-}
-
-async function deleteUser(req,res){
-    // user = {};
-    // let doc = await userModel.deleteOne({email:"abcd@gmail.com"})
-    // let doc = await userModel.findOneAndRemove({email:"abcdf@gmail.com"})
-    let doc = await userModel.findOne({email:"Versha1@gmail.com"})
-    console.log(doc);
-    let del = await doc.remove();
-    console.log(del);
-    res.json({
-        message: "user has been deleted",
-    });
-}
-
-
-function getUserById(req, res) {
-    console.log(req.params.name);
-    //let {id}=req.params;
-    // let user = db.findOne(id);
-    res.json({ msg: "user id is ", obj: req.params });
-}
-
-
-function setCookies(req,res){
-    // res.setHeader("Set-Cookie",'isLoggedIn = true');
-    res.cookie('isLoggedIn',false,{maxAge:1000,secure:true});
-    res.cookie('password',12345678,{secure:true});
-    res.send("cookies has been set")
-}
-
-function getCookies(req,res){
-    // let cookies = req.cookies;
-    let cookies = req.cookies.password;
-    console.log(cookies);
-    res.send("cookies received");
-}
+   
 
 module.exports = userRouter;
