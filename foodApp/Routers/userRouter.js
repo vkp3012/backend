@@ -27,6 +27,10 @@ userRouter
     .route("/resetpassword/:token")
     .post(resetpassword);
 
+userRouter
+    .route("/logout")
+    .get(logout);
+
 //profile page
 userRouter.use(protectRoute)
 userRouter
