@@ -1,27 +1,10 @@
 // const { append } = require("cheerio/lib/api/manipulation");
 const express = require("express");
 const userRouter = express.Router();
-const { getUser,postUser,updateUser,deleteUser,getAllUser} = require('../controller/userController');
+const { getUser,postUser,updateUser,deleteUser,allUser} = require('../controller/userController');
 const {isAuthorised, protectRoute } = require('../helper');
-// let user = [
-//     {
-//         id:1,
-//         name: "Vivek",
-//         age:100
-//     },
-//     {
-//         id:2,
-//         name: "Lalu",
-//         age:10
-//     },
-//     {
-//         id:1,
-//         name: "Sonu",
-//         age:150
-//     },
-// ];
+const { signup, login } = require("../controller/authController")
 
-const {signup,login} = require("../controller/authController")
 //user option
 userRouter
     .route('/:id')
@@ -36,16 +19,24 @@ userRouter
     .route("/signup")
     .post(signup)
 
+// userRouter
+//     .route("/forgetpassword")
+//     .post(forgetpassword);
+
+// userRouter
+//     .route("/resetpassword/:token")
+//     .post(resetpassword);
+
 //profile page
 userRouter.use(protectRoute)
 userRouter
-    .route('/userProfile')
+    .route('/profile')
     .get(getUser)
 
 //admin specific function
 userRouter.use(isAuthorised(['admin']));
-userRouter.route('')
-    .get(getAllUser)
+userRouter.route('/')
+    .get(allUser)
 
 // let isLoggedIn = true;
 // let isLoggedIn = false;

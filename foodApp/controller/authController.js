@@ -1,6 +1,7 @@
 const userModel = require('../models/userModel');
 var jwt = require('jsonwebtoken');
-const {JWT_KEY} = require('../helper')
+const { JWT_KEY } = require('../secrets')
+const { use } = require("../Routers/userRouter");
 
 module.exports.signup = async function (req, res) {
     // let { email, name, password } = req.body;
@@ -10,52 +11,102 @@ module.exports.signup = async function (req, res) {
         if(user){
             res.json({
                 msg: "user signed up", // email,name,password
-                user
-            })
+                user,
+            });
         }else{
             res.json({
                 msg: "user could not be signed up"
-            })
+            });
         }
     }
     catch (err){
         res.json({
-            err:err.message
-        })
-    }
-    
+            err : err.message
+        });
+    }   
 }
 
-module.exports.login = async function (req,res){
-    try{
-        let {email,password} = req.body;
-        let user = await userModel.findOne({email:email});
-
-        if(user){
-            //check id password matches
-            if(password == user.password){
-                let uid = user['_id']
-                var token = jwt.sign({payload : uid},JWT_KEY);
-                res.cookie('login',token)
+module.exports.login = async function (req, res) {
+    try {
+        let { email, password } = req.body;
+        let user = await userModel.findOne({ email : email });
+        if (user) {
+            //check if password matches
+            //bcrypt - compare
+            if (password == user.password) {
+                let uid = user["_id"];
+                var token = jwt.sign({ payload : uid }, JWT_KEY);
+                res.cookie("login", token);
                 res.json({
-                    message : "user logged in"
-                })
-            }else{
+                    msg: "user logged in",
+                });
+            } else {
                 res.json({
-                    message : "wrong credentials"
-                })
+                    msg: "wrong credentials",
+                });
             }
-
-        }else{
+        } else {
             res.json({
-                message : "user not found"
+            msg: "user not found",
+            });
+        }
+        } catch (err) {
+            res.json({
+                msg: err.message,
+            });
+    }
+}
+
+
+module.exports.forgetpassword = async function (req, res) {
+    try {
+        let { email } = req.body;
+        const user = userModel.findOne({ email: email });
+        if (user) {
+            //resetToken
+            const resetToken = user.createResetToken();
+            //create link 
+            //https://xyz.com/resetPassword/resetToken
+            let resetPasswordLink = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}`;
+            //send email to user
+            //nodemailer
+        }
+        else {
+            res.json({
+            msg:'user not found'
             })
         }
+        }
+        catch (err) {
+        res.status(500).json({
+            msg: err.message
+        });
     }
-    catch(err){
+}
+  
+module.exports.resetpassword = async function (req, res) {
+    try {
+        const token = req.params.token;
+        let { password, confirmPassword } = req.body;
+        const user = await userModel.findOne({ resetToken: token });
+        if (user) {
+            //resetPasswordHandler will update user in db 
+            user.resetPasswordHandler(password, confirmPassword);
+            await user.save();
+            res.json({
+            msg: "password chnaged succesfully",
+            });
+        }
+        else{
+            res.json({
+            msg: "user not found",
+            });
+        }
+    
+        }
+        catch (err) {
         res.json({
-            message: err.message
+            msg:err.message
         })
     }
-    
 }

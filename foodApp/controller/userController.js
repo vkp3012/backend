@@ -4,7 +4,7 @@ module.exports.getUser =  async function (req,res){
     // console.log(req.query);
     // let {name,age} = req.query;
     //get all users from data base...
-    try{
+    try {
         let id = req.id;
         let user = await userModel.findById(id);
         res.json({message: "users retrived" , user});
@@ -41,14 +41,14 @@ module.exports.updateUser = async function (req,res){
                 keys.push(key);
             }
 
-            for (let i = 0;i<keys.length;i++){
+            for (let i = 0;i < keys.length; i++){
                 user[keys[i]] = dataToBeUpdated[keys[i]];
             }
 
             const updatedData = await user.save();
             res.json({
                 message: "Data updated Succesfully",
-                updatedData 
+                updatedData, 
             });
         }else{
             // for(key in dataToBeUpdated){
@@ -56,16 +56,16 @@ module.exports.updateUser = async function (req,res){
             // }
             // let doc = await userModel.findOneAndUpdate(,dataToBeUpdated)
             res.json({
-                message: "user not found"
+                message: "user not found",
             });
         }
     }
     catch(err){
         res.json({
-            message: err.message
+            message: err.message,
         });
     }
-}
+};
 
 module.exports.deleteUser = async function (req,res){
     // user = {};
@@ -80,32 +80,32 @@ module.exports.deleteUser = async function (req,res){
         let user = await userModel.findByIdAndDelete(id);
         res.json({
             message: "user has been deleted",
-            user
+            user,
         });
     }
     catch(err){
         res.json({
-            message: err.message
+            message: err.message,
         });
     }
-}
+};
 
 
-module.exports.getAllUser =async function (req, res) {
+module.exports.allUser = async function (req, res) {
     //let {id}=req.params;
     try{
         let allUsers = await userModel.find();
         res.json({ 
             msg: "user id is ", 
-            allUsers
+            allUsers,
         });
     }
     catch(err){
         res.json({
-            message: err.message
+            message: err.message,
         });
     }
-}
+};
 
 
 // module.exports.setCookies = function (req,res){
