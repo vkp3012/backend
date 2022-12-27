@@ -3,7 +3,7 @@ const express = require("express");
 const userRouter = express.Router();
 const { getUser,postUser,updateUser,deleteUser,allUser} = require('../controller/userController');
 const {isAuthorised, protectRoute } = require('../helper');
-const { signup, login } = require("../controller/authController")
+const { signup, login,forgetpassword, resetpassword} = require("../controller/authController")
 
 //user option
 userRouter
@@ -19,13 +19,13 @@ userRouter
     .route("/signup")
     .post(signup)
 
-// userRouter
-//     .route("/forgetpassword")
-//     .post(forgetpassword);
+userRouter
+    .route("/forgetpassword")
+    .post(forgetpassword);
 
-// userRouter
-//     .route("/resetpassword/:token")
-//     .post(resetpassword);
+userRouter
+    .route("/resetpassword/:token")
+    .post(resetpassword);
 
 //profile page
 userRouter.use(protectRoute)

@@ -78,12 +78,12 @@ module.exports.forgetpassword = async function (req, res) {
         }
         }
         catch (err) {
-        res.status(500).json({
-            msg: err.message
-        });
+            res.status(500).json({
+                msg: err.message
+            });
     }
 }
-  
+
 module.exports.resetpassword = async function (req, res) {
     try {
         const token = req.params.token;
@@ -105,8 +105,8 @@ module.exports.resetpassword = async function (req, res) {
     
         }
         catch (err) {
-        res.json({
-            msg:err.message
-        })
+            res.json({
+                msg:err.message
+            })
     }
 }
