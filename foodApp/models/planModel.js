@@ -40,18 +40,18 @@ const planSchema = mongoose.Schema({
 const planModel = mongoose.model("planModel",planSchema);
 module.exports = planModel;
 
-(async function createPlan() {
-    let plan = {
-        name : "SuperFood",
-        duration : 3,
-        price : ' ',
-        ratingsAverage : 3.8,
-        discount : 10
-    }
+// (async function createPlan() {
+//     let plan = {
+//         name : "SuperFood",
+//         duration : 3,
+//         price : ' ',
+//         ratingsAverage : 3.8,
+//         discount : 10
+//     }
 
-    let data = await planModel.create(plan);
-    console.log(data);
-    //const doc = new planModel(plan);
-    // await doc.save()
-})();
+//     let data = await planModel.create(plan);
+//     console.log(data);
+//     //const doc = new planModel(plan);
+//     // await doc.save()
+// })();
 
