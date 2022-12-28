@@ -1,7 +1,7 @@
 const express = require("express");
-const { get } = require("lodash");
 const reviewRouter = express.Router();
-const {isAuthorised,protectRoute} = require("../helper");
+const {isAuthorised, protectRoute} = require("../helper");
+const {getAllReviews,top3Review,getPlanReview,createReview,updateReview,deleteReview} = require("../controller/reviewController")
 
 reviewRouter
     .route("/all")
@@ -9,19 +9,19 @@ reviewRouter
 
 reviewRouter
     .route("/top3")
-    .get("top3Review")
+    .get(top3Review)
+
+
+reviewRouter.use(protectRoute);
+reviewRouter
+    .route("/crud/:plan")
+    .post(createReview)
+    .patch(updateReview)
+    .delete(deleteReview)
+
 
 reviewRouter
     .route("/:id")
     .get(getPlanReview);
-
-reviewRouter
-    .route(" ")
-    .post(createReview)
-
-reviewRouter
-    .route("")
-    .patch(updateReview)
-    .delete(deleteReview)
 
 module.exports  = reviewRouter;

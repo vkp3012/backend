@@ -1,4 +1,3 @@
-const { next } = require('cheerio/lib/api/traversing');
 const mongoose = require('mongoose')
 const { db_link } = require('../secrets')
 
@@ -38,9 +37,9 @@ const reviewSchema = new mongoose.Schema({
     },
 });
 
-reviewSchema.pre(/^find/,function (mext){
+reviewSchema.pre(/^find/,function (next){
     this.populate({
-        path : 'user',
+        path : "user",
         select : "name profileImage"
     }).populate("plan");
     next();
