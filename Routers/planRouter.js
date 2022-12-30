@@ -1,8 +1,8 @@
 const express = require("express");
-const { isAuthorised, protectRoute } = require("/helper");
+const { isAuthorised, protectRoute } = require("../helper");
 const planRouter = express.Router();
 
-const {getAllPlans,getPlan,createPlan,updatePlan,deletePlan,top3Plans,} = require("/controller/planController")
+const {getAllPlans,getPlan,createPlan,updatePlan,deletePlan,top3Plans,} = require("../controller/planController")
 
 planRouter
     .route('/all')

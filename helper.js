@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken');
-const userModel = require('/models/userModel');
-const { JWT_KEY } = require('/secrets')
+const userModel = require('./models/userModel');
+const { JWT_KEY } = require('./secrets')
 
 module.exports.protectRoute = async function (req, res, next){
     let token;

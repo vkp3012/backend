@@ -1,4 +1,4 @@
-const planModel = require("/models/planModel");
+const planModel = require("../models/planModel");
 
 module.exports.getAllPlans = async function (req ,res){
     try {

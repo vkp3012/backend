@@ -1,9 +1,9 @@
 // const { append } = require("cheerio/lib/api/manipulation");
 const express = require("express");
 const userRouter = express.Router();
-const { getUser,postUser,updateUser,deleteUser,allUser} = require('/controller/userController');
-const {isAuthorised, protectRoute } = require('/helper');
-const { signup, login,forgetpassword, resetpassword,logout } = require("/controller/authController")
+const { getUser,postUser,updateUser,deleteUser,allUser} = require('../controller/userController');
+const {isAuthorised, protectRoute } = require('../helper');
+const { signup, login,forgetpassword, resetpassword,logout } = require("../controller/authController")
 
 //user option
 userRouter

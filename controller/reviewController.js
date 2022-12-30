@@ -1,5 +1,5 @@
-const planModel = require("/models/planModel.js");
-const reviewModel = require("/models/reviewModel.js");
+const planModel = require("../models/planModel.js");
+const reviewModel = require("../models/reviewModel.js");
 
 module.exports.getAllReviews = async function(req,res){
     try {

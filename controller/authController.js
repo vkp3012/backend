@@ -1,8 +1,8 @@
-const userModel = require('/models/userModel');
+const userModel = require('../models/userModel');
 var jwt = require('jsonwebtoken');
-const { JWT_KEY } = require('/secrets')
+const { JWT_KEY } = require('../secrets')
 // const { user } = require("../Routers/userRouter");
-const { sendMail } = require('/utility/nodemailer')
+const { sendMail } = require('../utility/nodemailer')
 
 module.exports.signup = async function (req, res) {
     // let { email, name, password } = req.body;

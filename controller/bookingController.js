@@ -1,7 +1,7 @@
 let SK = "sk_test_51MJvwgSFBfXVUq2bTwm7WRAxWRHNfAZ0CwszJxXlmefIMg51GF6D4IHVeQXwebwca4QlrwfzaRNkIEuCVwxiLtgb00nCFocEqb"
 const stripe = require('stripe')(SK);
-const planModel=require("/models/planModel")
-const userModel = require("/models/userModel")
+const planModel=require("../models/planModel")
+const userModel = require("../models/userModel")
 
 module.exports.createSession = async function (req, res) {
     try {
