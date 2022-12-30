@@ -1,6 +1,6 @@
 // "use strict";
 const nodemailer = require("nodemailer");
-
+const { password_nodemailer } = require("../secrets")
 // async..await is not allowed in global scope, must use a wrapper
 module.exports.sendMail = async function sendMail(str,data) {
     // Generate test SMTP service account from ethereal.email
@@ -14,7 +14,7 @@ module.exports.sendMail = async function sendMail(str,data) {
         secure: false, // true for 465, false for other ports
         auth: {
         user: "vivekece1116@gmail.com", // generated ethereal user
-        pass: "", // generated ethereal password
+        pass: password_nodemailer, // generated ethereal password
         },
     });
 
