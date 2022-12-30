@@ -17,8 +17,8 @@ app.use("/plan",planRouter);
 app.use("/review",reviewRouter);
 app.use('/booking', bookingRouter)
 
-// const port = process.env.PORT || 5000 ;
-app.listen(5000)
+const port = process.env.PORT || 5000 ;
+app.listen(port)
 
 //model
 // const userModel = mongoose.model("userModel",userSchema);
