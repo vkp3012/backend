@@ -3,7 +3,7 @@ const { db_link } = require('../secrets')
 const emailValidator = require("email-validator")
 const bcrypt = require("bcrypt")
 const {v4 : uuidv4 } = require('uuid');
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', true);
 
 mongoose
     .connect(db_link)

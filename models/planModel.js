@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { db_link } = require('../secrets')
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', true);
 
 mongoose
     .connect(db_link)
